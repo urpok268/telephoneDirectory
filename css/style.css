@@ -275,6 +275,29 @@ html,body{
   }
 }
 
+/* --- FIX для маленьких экранов --- */
+@media (max-width:500px){
+  .screen {
+    padding:12px;         /* сохраняем боковые отступы */
+  }
+  .header,
+  .footer,
+  .list,
+  .search,
+  .card {
+    border-radius:8px;    /* меньше скругление */
+  }
+  .card-mid{
+    width:100%;
+  }
+  .org-title{
+    font-size:18px;
+  }
+  .brand{
+    font-size:16px;
+  }
+}
+
 /* --- Footer --- */
 .footer{
   display:flex;
@@ -350,10 +373,4 @@ html,body{
 @keyframes fadeIn {
   from {opacity:0; transform:scale(0.95);}
   to {opacity:1; transform:scale(1);}
-}
-@media (max-width:500px){
-  .screen {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
 }
