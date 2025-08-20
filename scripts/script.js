@@ -4,6 +4,7 @@ const people = [
   { id:2, org:"АО Тест", address:"г. Санкт-Петербург, ул. Тестовая, 5", name:'Смирнов Алексей Павлович', pos:'Начальник участка', phones:['+7 (812) 323-45-67'], email:'smirnov@test.ru', fax:'+7 (812) 765-43-23' },
   { id:3, org:"ЗАО Образец", address:"г. Казань, пр. Образцовый, 12", name:'Морозов Денис Андреевич', pos:'Инженер ПТО', phones:['+7 (843) 523-45-67'], email:'morozov@sample.ru', fax:'+7 (843) 765-43-25' },
 ];
+
 // --- QR генератор ---
 function createQRCodeInContainer(container, text, size){
   container.innerHTML = '';
@@ -172,11 +173,11 @@ function showQRModal(person){
   // закрытие модалки
   document.getElementById('modalClose').onclick = () => document.getElementById('qrModal').style.display='none';
   document.getElementById('qrModal').onclick = e => { if(e.target.id==='qrModal') e.currentTarget.style.display='none'; };
-
 })();
 
 // --- обновление времени ---
 setInterval(()=>{ 
   const d=new Date(); 
-  document.getElementById('time').textContent = String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'); 
+  document.getElementById('time').textContent =
+    String(d.getHours()).padStart(2,'0')+':' + String(d.getMinutes()).padStart(2,'0'); 
 },1000);

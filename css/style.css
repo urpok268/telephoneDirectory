@@ -15,6 +15,8 @@ html,body{
   background:var(--bg);
   font-family:Inter, Roboto, "Segoe UI", Arial, sans-serif;
   color:#1a1a1a;
+  /* FIX: не даём горизонтально разрастаться странице */
+  overflow-x:hidden;
 }
 
 .screen{
@@ -36,33 +38,23 @@ html,body{
   background:var(--primary);
   border-radius:12px;
   color:#fff;
+  /* FIX: разрешаем переносы и сжатие на узких экранах */
+  flex-wrap:wrap;
+  gap:10px 12px;
 }
-
-.header-left{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-.brand{
-  font-size:20px;
-  font-weight:700;
-  color:#fff;
-}
-
-.org-title{
-  font-size:22px;
-  font-weight:800;
-  color:#fff;
-}
-
+.header > * { min-width:0; }    
+.header-left{ display:flex; align-items:center; gap:14px; min-width:0; }
 .meta{
   display:flex;
   align-items:center;
   gap:18px;
   font-size:16px;
   color:#d6dee6;
+  flex:0 0 auto;
 }
+
+.brand{ font-size:20px; font-weight:700; color:#fff; }
+.org-title{ font-size:22px; font-weight:800; color:#fff; }
 
 .status{
   padding:6px 10px;
@@ -70,6 +62,8 @@ html,body{
   background:#e8f2fb;
   color:var(--primary);
   font-weight:600;
+  /* FIX: можно переносить текст внутри бейджа */
+  white-space:normal;
 }
 
 .main{
@@ -77,6 +71,7 @@ html,body{
   grid-template-columns:1fr;
   gap:20px;
   align-items:start;
+  min-width:0;
 }
 
 .search{
@@ -87,6 +82,7 @@ html,body{
   border:2px solid #d6dee6;
   font-size:20px;
   color:#1a1a1a;
+  min-width:0;
 }
 
 .list{
@@ -95,6 +91,8 @@ html,body{
   border-radius:12px;
   min-height:420px;
   overflow:auto;
+  /* FIX: горизонтальные полосы не нужны */
+  overflow-x:hidden;
 }
 
 .org-block{
@@ -113,18 +111,18 @@ html,body{
   border-radius:8px;
   background:#f2f6fa;
   margin-bottom:8px;
+  /* FIX: перенос на две строки при нехватке места */
+  flex-wrap:wrap;
+  gap:6px 10px;
 }
-
 .org-name{
   font-size:20px;
   font-weight:800;
   color:var(--primary);
+  min-width:0; 
 }
 
-.org-address{
-  font-size:13px;
-  color:var(--muted);
-}
+.org-address{ font-size:13px; color:var(--muted); }
 
 .people{
   display:flex;
@@ -145,6 +143,10 @@ html,body{
   min-height:120px;
   cursor:pointer;
   transition:transform .15s ease, box-shadow .15s ease;
+  max-width:100%;     /* FIX: не шире контейнера */
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .card:hover{
@@ -156,8 +158,8 @@ html,body{
   display:flex;
   gap:14px;
   align-items:flex-start;
-  flex:1;
-  min-width:0;
+  flex:1 1 auto;
+  min-width:0; /* FIX: разрешаем сжиматься */
 }
 
 .avatar{
@@ -171,6 +173,7 @@ html,body{
   font-weight:700;
   color:var(--primary);
   font-size:26px;
+  flex:0 0 auto;
 }
 
 .main-info{
@@ -183,10 +186,11 @@ html,body{
 .fio{
   font-size:20px;
   font-weight:800;
-  white-space:nowrap;
-  overflow:hidden;
   text-overflow:ellipsis;
   color:var(--primary);
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .pos{
@@ -211,6 +215,7 @@ html,body{
   align-items:flex-end;
   width:360px;
   padding-left:18px;
+  min-width:0;
 }
 
 .contact-row{
@@ -226,11 +231,12 @@ html,body{
   font-weight:700;
   width:110px;
   text-align:right;
+  flex:0 0 auto;
 }
 
 .value{
   font-weight:600;
-  min-width:120px;
+  min-width:0;
   text-align:right;
   word-break:break-word;
   color:#1a1a1a;
@@ -242,6 +248,7 @@ html,body{
   align-items:center;
   justify-content:center;
   margin-left:18px;
+  flex:0 0 auto;
 }
 
 .card-qr img, .card-qr canvas { 
@@ -277,25 +284,18 @@ html,body{
 
 /* --- FIX для маленьких экранов --- */
 @media (max-width:500px){
-  .screen {
-    padding:12px;         /* сохраняем боковые отступы */
-  }
-  .header,
-  .footer,
-  .list,
-  .search,
-  .card {
-    border-radius:8px;    /* меньше скругление */
-  }
-  .card-mid{
+  .screen { padding:12px; }
+  .org-title{ font-size:18px; }
+  .brand{ font-size:16px; }
+
+  /* кладём блок статуса под заголовок */
+  .meta{
     width:100%;
+    justify-content:space-between;
+    gap:10px;
+    order:2;
   }
-  .org-title{
-    font-size:18px;
-  }
-  .brand{
-    font-size:16px;
-  }
+  .header-left{ order:1; }
 }
 
 /* --- Footer --- */
@@ -344,9 +344,7 @@ html,body{
   color:var(--muted);
 }
 
-.modal-close:hover {
-  color:var(--primary);
-}
+.modal-close:hover { color:var(--primary); }
 
 #modalQR {
   padding:20px;
