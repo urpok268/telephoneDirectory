@@ -351,3 +351,9 @@ html,body{
   from {opacity:0; transform:scale(0.95);}
   to {opacity:1; transform:scale(1);}
 }
+@media (max-width:500px){
+  .screen {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
