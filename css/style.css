@@ -196,7 +196,6 @@ html,body{
 .pos{
   font-size:14px;
   color:var(--muted);
-  white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
